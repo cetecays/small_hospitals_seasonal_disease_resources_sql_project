@@ -12,7 +12,7 @@ WARNING:
     and ensure you have proper backups before running this script.
 
 Note:
-    The BULK INSERT paths point to 'C:\Users\yanso\OneDrive\Documents\Data Projects\Readmission and Capacity\'.
+    The BULK INSERT paths point to 'C:\sql\sql-data-analytics-project\01_datasets\csv-files\'.
     Change them to the folder where you saved the CSV files.
 */
 
@@ -41,6 +41,7 @@ GO
 
 CREATE TABLE gold.dim_dates(
     date_key int,
+    visit_date date,
     month nvarchar(max),
     season nvarchar(max),
     day_of_week nvarchar(max)
@@ -75,10 +76,12 @@ GO
 BULK INSERT gold.dim_dates
 FROM 'C:\Users\yanso\OneDrive\Documents\Data Projects\Readmission and Capacity\gold.dim_dates.csv'
 WITH (
-	FIRSTROW = 2,
-	FIELDTERMINATOR = ',',
-	ROWTERMINATOR = '0x0A',
-	TABLOCK
+    FIRSTROW = 1,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '0x0D0A',
+    FORMAT = 'CSV',
+    FIELDQUOTE = '"',
+    TABLOCK
 );
 GO
 
@@ -88,9 +91,11 @@ GO
 BULK INSERT gold.fact_visits
 FROM 'C:\Users\yanso\OneDrive\Documents\Data Projects\Readmission and Capacity\gold.fact_visits.csv'
 WITH (
-	FIRSTROW = 2,
-	FIELDTERMINATOR = ',',
-	ROWTERMINATOR = '0x0A',
-	TABLOCK
+    FIRSTROW = 1,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '0x0D0A',
+    FORMAT = 'CSV',
+    FIELDQUOTE = '"',
+    TABLOCK
 );
 GO

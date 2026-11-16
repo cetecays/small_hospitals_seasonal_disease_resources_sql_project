@@ -48,7 +48,9 @@ BEGIN
 		WITH (
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
-			ROWTERMINATOR = '0x0A',
+			ROWTERMINATOR = '0x0D0A',
+			FORMAT = 'CSV',
+			FIELDQUOTE = '"',
 			TABLOCK
 		);
 		SET @end_time = GETDATE();
@@ -62,7 +64,7 @@ BEGIN
 		PRINT 'Error Message: ' + CAST (ERROR_STATE() AS NVARCHAR);
 		PRINT '==========================================='
 	END CATCH
-END'
+END
 		PRINT '-------------------------------------------'
 
 		SET @start_time = GETDATE();
@@ -75,7 +77,9 @@ END'
 		WITH (
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
-			ROWTERMINATOR = '0x0A',
+			ROWTERMINATOR = '0x0D0A',
+			FORMAT = 'CSV',
+			FIELDQUOTE = '"',
 			TABLOCK
 		);
 		SET @end_time = GETDATE();

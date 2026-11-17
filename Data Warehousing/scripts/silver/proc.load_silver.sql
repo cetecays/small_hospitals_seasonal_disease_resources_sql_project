@@ -85,7 +85,14 @@ BEGIN
 			TRY_CONVERT(int, hod_icu_beds_available) AS hod_icu_beds_available,
 			TRY_CONVERT(int, hod_icu_beds_occupied) AS hod_icu_beds_occupied,
 			TRY_CONVERT(int, hod_oxygen_units_used) AS hod_oxygen_units_used,
-			TRY_CONVERT(int, hod_month) AS hod_month,
+			MONTH(COALESCE(
+				TRY_CONVERT(date, hod_visit_date, 23),
+				TRY_CONVERT(date, hod_visit_date, 103),
+				TRY_CONVERT(date, hod_visit_date, 101),
+				TRY_CONVERT(date, hod_visit_date, 105),
+				TRY_CONVERT(date, hod_visit_date, 112),
+				TRY_CONVERT(date, hod_visit_date, 106),
+				TRY_CONVERT(date, hod_visit_date))) AS hod_month, -- Correct matching of month with hod_visit_date
 			hod_season,
 			DATENAME(WEEKDAY, (COALESCE(
 									TRY_CONVERT(date, hod_visit_date, 23),

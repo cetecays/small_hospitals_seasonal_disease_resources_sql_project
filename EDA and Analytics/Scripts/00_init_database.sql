@@ -42,7 +42,7 @@ GO
 CREATE TABLE gold.dim_dates(
     date_key int,
     visit_date date,
-    month nvarchar(max),
+    month int,
     season nvarchar(max),
     day_of_week nvarchar(max)
 );

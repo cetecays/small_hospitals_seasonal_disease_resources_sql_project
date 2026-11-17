@@ -67,8 +67,8 @@ SELECT
 -- Find the average percentage of available resources left by season
 SELECT
     da.season,
-    CAST(AVG(vi.total_beds_available*100.0/(total_beds_available+beds_occupied)) AS DECIMAL(10,2)) as avg_available_beds_left,
-    CAST(AVG(vi.icu_beds_available*100.0/(icu_beds_available+icu_beds_occupied)) AS DECIMAL(10,2)) as avg_icu_beds_left
+    CAST(AVG((vi.total_beds_available-vi.beds_occupied)*100.0/total_beds_available) AS DECIMAL(10,2)) as avg_available_beds_left,
+    CAST(AVG((vi.icu_beds_available-vi.icu_beds_occupied)*100.0/icu_beds_available) AS DECIMAL(10,2)) as avg_icu_beds_left
     FROM gold.fact_visits vi
     LEFT JOIN gold.dim_dates da ON vi.date_key = da.date_key
     GROUP BY da.season

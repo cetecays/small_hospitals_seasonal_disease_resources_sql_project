@@ -24,8 +24,8 @@ SELECT
             WHEN vi.readmission_within_30_days = 'Yes' THEN 1
         END) * 100.0 / COUNT(*) AS DECIMAL(10, 2)
     ) AS rate_of_readmission,
-    CAST(AVG(vi.total_beds_available*100.0/(total_beds_available+beds_occupied)) AS DECIMAL(10,2)) as avg_available_beds_left,
-    CAST(AVG(vi.icu_beds_available*100.0/(icu_beds_available+icu_beds_occupied)) AS DECIMAL(10,2)) as avg_icu_beds_left,
+    CAST(AVG((vi.total_beds_available-vi.beds_occupied)*100.0/total_beds_available) AS DECIMAL(10,2)) as avg_available_beds_left,
+    CAST(AVG((vi.icu_beds_available-vi.icu_beds_occupied)*100.0/icu_beds_available) AS DECIMAL(10,2)) as avg_icu_beds_left,
     AVG(oxygen_units_used) AS avg_oxygen_units_used
 FROM gold.fact_visits vi
 LEFT JOIN gold.dim_dates da

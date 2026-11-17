@@ -44,14 +44,14 @@ SELECT
 -- Find the average length of stay for each disease
 SELECT
     disease,
-    AVG(length_of_stay) AS avg_length_of_stay
+    ROUND(AVG(CAST(length_of_stay AS FLOAT)), 2) AS avg_length_of_stay
     FROM gold.fact_visits
     GROUP BY disease;
 
 -- Find the average length of stay by severity
 SELECT
     severity,
-    AVG(length_of_stay) AS avg_length_of_stay
+    ROUND(AVG(CAST(length_of_stay AS FLOAT)), 2) AS avg_length_of_stay
     FROM gold.fact_visits
     GROUP BY severity;
 
@@ -76,7 +76,7 @@ SELECT
 -- Find the average oxygen unit usage by season
 SELECT
     da.season,
-    AVG(oxygen_units_used) AS avg_oxygen_units_used
+    ROUND(AVG(CAST(oxygen_units_used AS FLOAT)), 2) AS avg_oxygen_units_used
     FROM gold.fact_visits vi
     LEFT JOIN gold.dim_dates da ON vi.date_key = da.date_key
     GROUP BY da.season

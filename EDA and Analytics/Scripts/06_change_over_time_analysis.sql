@@ -18,7 +18,7 @@ SQL Functions Used:
 SELECT
     DATETRUNC(MONTH, da.visit_date) AS visit_month,
     da.season,
-    AVG(vi.length_of_stay) AS avg_length_of_stay,
+    ROUND(AVG(CAST(vi.length_of_stay AS FLOAT)), 2) AS avg_length_of_stay,
     CAST(
         COUNT(CASE
             WHEN vi.readmission_within_30_days = 'Yes' THEN 1

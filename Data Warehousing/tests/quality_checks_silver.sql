@@ -80,11 +80,12 @@ COALESCE(
 ) AS hod_visit_date
 FROM silver.hospital_operations_dataset
 
--- Check for Visit Date Mismatch with Date of Week
+-- Check for Visit Date Mismatch with Day of Week and Month
 SELECT
 hod_patient_id,
 hod_visit_date_clean,
-hod_day_of_week
+hod_day_of_week,
+hod_month
 FROM (SELECT 
     hod_patient_id,
     COALESCE(
@@ -96,21 +97,11 @@ FROM (SELECT
 	    TRY_CONVERT(date, hod_visit_date, 106),
 	    TRY_CONVERT(date, hod_visit_date)
     ) AS hod_visit_date_clean,
-    hod_day_of_week
+    hod_day_of_week,
+    hod_month
     FROM silver.hospital_operations_dataset) a
 WHERE DATENAME(WEEKDAY, hod_visit_date_clean) != hod_day_of_week
-
-SELECT
-	DATENAME(WEEKDAY, (COALESCE(
-						    TRY_CONVERT(date, hod_visit_date, 23),
-						    TRY_CONVERT(date, hod_visit_date, 103),
-						    TRY_CONVERT(date, hod_visit_date, 101),
-						    TRY_CONVERT(date, hod_visit_date, 105),
-						    TRY_CONVERT(date, hod_visit_date, 112),
-						    TRY_CONVERT(date, hod_visit_date, 106),
-						    TRY_CONVERT(date, hod_visit_date)
-					    ))) AS hod_day_of_week
-FROM silver.hospital_operations_dataset;
+OR MONTH(hod_visit_date_clean) != hod_month
 
 -- Check for NULLs or Negative Numbers
 DECLARE @hod_TableName NVARCHAR(128) = 'hospital_operations_dataset';

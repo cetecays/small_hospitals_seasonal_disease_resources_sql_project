@@ -1,7 +1,7 @@
 -- ====================================================================
 -- Checking 'gold.dim_dates'
 -- ====================================================================
--- Check for Uniqueness of Customer Key in gold.dim_dates
+-- Check for Uniqueness of Date Key in gold.dim_dates
 -- Expectation: No results
 SELECT
     date_key,

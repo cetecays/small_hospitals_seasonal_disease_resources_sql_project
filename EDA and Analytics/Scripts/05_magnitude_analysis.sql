@@ -12,14 +12,16 @@ SQL Functions Used:
 ===============================================================================
 */
 
--- What is the rate of readmission for each disease?
+-- What are the top 5 diseases that produce the highest rates of readmission?
 SELECT 
     disease,
     CAST(COUNT(CASE
         WHEN readmission_within_30_days = 'Yes' THEN 1
         END) * 100.0/COUNT(*) AS DECIMAL(10, 2)) AS rate_of_readmission
     FROM gold.fact_visits
-    GROUP BY disease;
+    GROUP BY disease
+    ORDER BY rate_of_readmission DESC
+    LIMIT 5;
 
 -- What is the rate of readmission in each season?
 SELECT 
@@ -41,12 +43,14 @@ SELECT
     GROUP BY vi.disease, da.season
     ORDER BY vi.disease, da.season;
 
--- Find the average length of stay for each disease
+-- What are the top 5 diseases that produce the longest lengths of stay at the hospital?
 SELECT
     disease,
     ROUND(AVG(CAST(length_of_stay AS FLOAT)), 2) AS avg_length_of_stay
     FROM gold.fact_visits
-    GROUP BY disease;
+    GROUP BY disease
+    ORDER BY avg_length_of_stay DESC
+    LIMIT 5;
 
 -- Find the average length of stay by severity
 SELECT

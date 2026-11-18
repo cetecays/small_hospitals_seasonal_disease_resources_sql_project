@@ -11,7 +11,7 @@ GROUP BY date_key
 HAVING COUNT(*) > 1;
 
 -- ====================================================================
--- Checking 'gold.fact_sales'
+-- Checking 'gold.fact_visits'
 -- ====================================================================
 -- Check the data model connectivity between fact and dimensions
 SELECT *

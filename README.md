@@ -1,4 +1,4 @@
-# [View Full Project Report](Report_Small_Hospitals_Seasonal_Disease_and_Resource_Analysis_Project.docx)
+# [View Full Project Report (Highly Recommended!)](Report_Small_Hospitals_Seasonal_Disease_and_Resource_Analysis_Project.docx)
 
 # 1 Project Overview
 ## 1.1 Background and Context

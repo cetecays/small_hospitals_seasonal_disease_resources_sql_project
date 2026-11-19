@@ -15,13 +15,13 @@ Usage:
 */
 
 -- =============================================================================
--- Create Dimension: gold.dim_date
+-- Create Dimension: gold.dim_dates
 -- =============================================================================
-IF OBJECT_ID('gold.dim_date', 'V') IS NOT NULL
-    DROP VIEW gold.dim_date;
+IF OBJECT_ID('gold.dim_dates', 'V') IS NOT NULL
+    DROP VIEW gold.dim_dates;
 GO
 
-CREATE VIEW gold.dim_date AS
+CREATE VIEW gold.dim_dates AS
 SELECT
     ROW_NUMBER() OVER (ORDER BY hod_visit_date) AS date_key,    -- Surrogate key
     hod_visit_date AS visit_date,
@@ -32,13 +32,13 @@ FROM silver.hospital_operations_dataset;
 GO
 
 -- =============================================================================
--- Create Fact Table: gold.fact_visit
+-- Create Fact Table: gold.fact_visits
 -- =============================================================================
-IF OBJECT_ID('gold.fact_visit', 'V') IS NOT NULL
-    DROP VIEW gold.fact_visit;
+IF OBJECT_ID('gold.fact_visits', 'V') IS NOT NULL
+    DROP VIEW gold.fact_visits;
 GO
 
-CREATE VIEW gold.fact_visit AS
+CREATE VIEW gold.fact_visits AS
 SELECT
     op.hod_patient_id AS patient_id,
     op.hod_age AS age,
@@ -59,5 +59,5 @@ SELECT
     op.hod_department AS department, 
     op.hod_readmission_within_30_days AS readmission_within_30_days
 FROM silver.hospital_operations_dataset op
-LEFT JOIN gold.dim_date da ON op.hod_visit_date = da.visit_date;
+LEFT JOIN gold.dim_dates da ON op.hod_visit_dates = da.visit_dates;
 GO

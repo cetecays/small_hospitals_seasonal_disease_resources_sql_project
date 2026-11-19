@@ -1,7 +1,7 @@
 -- ====================================================================
 -- Checking 'gold.dim_dates'
 -- ====================================================================
--- Check for Uniqueness of Customer Key in gold.dim_dates
+-- Check for Uniqueness of Date Key in gold.dim_dates
 -- Expectation: No results
 SELECT
     date_key,
@@ -11,7 +11,7 @@ GROUP BY date_key
 HAVING COUNT(*) > 1;
 
 -- ====================================================================
--- Checking 'gold.fact_sales'
+-- Checking 'gold.fact_visits'
 -- ====================================================================
 -- Check the data model connectivity between fact and dimensions
 SELECT *
